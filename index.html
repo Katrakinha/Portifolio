@@ -274,6 +274,20 @@
             object-fit: cover;
         }
 
+        /* Esconde o GIF por padrão e cria uma transição suave */
+.game-cover img.gif-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+}
+
+/* Mostra o GIF quando o mouse passa em cima do card */
+.game-card:hover .game-cover img.gif-hover {
+    opacity: 1;
+}
+
         .game-badge {
             position: absolute;
             top: 10px;
@@ -528,6 +542,7 @@
             <article class="game-card">
                 <div class="game-cover">
                     <img src="https://img.itch.zone/aW1nLzI5Mzc3NzY3LmdpZg==/315x250%23c/aGyMKX.gif" alt="Nano Aware">
+                    <img src="https://img.itch.zone/aW1nLzI5Mzc3NzY3LmdpZg==/315x250%23cm/aGyMKX.gif" class="gif-hover" alt="Nano Aware">
                     <span class="game-badge">Unity | C# | 2026</span>
                 </div>
                 <div class="game-content">
@@ -572,6 +587,7 @@
             <article class="game-card">
                 <div class="game-cover">
                     <img src="https://img.itch.zone/aW1nLzI5NTMzMzQ1LmdpZg==/315x250%23c/AXtGGv.gif" alt="Crownfall">
+                    <img src="https://img.itch.zone/aW1nLzI5NTMzMzQ1LmdpZg==/315x250%23cm/AXtGGv.gif" class="gif-hover" alt="Crownfall">
                     <span class="game-badge">2D Game | 2025</span>
                 </div>
                 <div class="game-content">
