@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Kanthack | Game Programmer Portfolio</title>
+    <style>
+        /* =========================================================
+           PALETA DE CORES (ESTILO STEAM / DISCORD)
+           Quando sua identidade visual ficar pronta, basta trocar 
+           os códigos hexadecimais abaixo!
+        ========================================================= */
+        :root {
+            --bg-main: #171a21;        /* Fundo principal (Steam Dark) */
+            --bg-secondary: #1e1f22;   /* Fundo de seções (Discord Dark) */
+            --bg-card: #2b2d31;        /* Fundo dos cards (Discord Card) */
+            --bg-exp-box: #1b2838;     /* Destaque da caixa de experiência (Steam Blue) */
+            --accent-primary: #5865F2; /* Azul/Roxo Discord (Botões e detalhes) */
+            --accent-hover: #4752C4;   /* Cor do botão ao passar o mouse */
+            --accent-steam: #66c0f4;   /* Azul claro Steam (Títulos e tags) */
+            --text-main: #f2f3f5;      /* Texto principal claro */
+            --text-muted: #b5bac1;     /* Texto secundário acinzentado */
+            --border-color: #3f4147;   /* Bordas sutis */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Controle de Idioma (PT visível por padrão) */
+        body.pt .lang-en { display: none !important; }
+        body.en .lang-pt { display: none !important; }
+
+        /* Barra de Navegação Fixa */
+        header {
+            background-color: rgba(23, 26, 33, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-steam);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-steam);
+        }
+
+        .lang-btn {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--accent-steam);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            background-color: var(--accent-steam);
+            color: #111;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* Hero / Apresentação */
+        .hero {
+            background: linear-gradient(135deg, var(--bg-exp-box) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 45px 35px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--accent-steam);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        /* Tags de Tecnologias */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            background-color: rgba(102, 192, 244, 0.12);
+            color: var(--accent-steam);
+            border: 1px solid rgba(102, 192, 244, 0.3);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Botões Principais */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-primary);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-steam);
+            background-color: rgba(102, 192, 244, 0.1);
+        }
+
+        /* Títulos de Seção */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 26px;
+            background-color: var(--accent-steam);
+            border-radius: 3px;
+        }
+
+        /* Grid de Jogos (Portfólio) */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+
+        .game-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-steam);
+        }
+
+        /* 1. CAPA DO JOGO */
+        .game-cover {
+            width: 100%;
+            height: 195px;
+            background-color: #111318;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .game-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(23, 26, 33, 0.9);
+            color: var(--accent-steam);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(102, 192, 244, 0.3);
+        }
+
+        .game-content {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .game-title {
+            font-size: 1.35rem;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        /* 2. RESUMO DO JOGO */
+        .game-summary {
+            margin-bottom: 16px;
+        }
+
+        .block-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent-steam);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .game-summary p {
+            color: var(--text-muted);
+            font-size: 0.93rem;
+        }
+
+        /* 3. EXPERIÊNCIA NO DESENVOLVIMENTO */
+        .dev-experience {
+            background-color: var(--bg-exp-box);
+            border-left: 3px solid var(--accent-primary);
+            padding: 12px 14px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .dev-experience p {
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .game-footer {
+            margin-top: auto;
+        }
+
+        .game-footer .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Linha do Tempo (Experiência e Formação) */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+
+        .timeline-card h3 {
+            color: #fff;
+            font-size: 1.15rem;
+            margin-bottom: 4px;
+        }
+
+        .timeline-card .place {
+            color: var(--accent-steam);
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 650px) {
+            .hero h1 { font-size: 1.8rem; }
+            .nav-links a { display: none; }
+        }
+    </style>
+</head>
+<body class="pt">
+
+    <!-- BARRA DO TOPO -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">Gabriel <span>Kanthack</span></div>
+            <div class="nav-links">
+                <a href="#jogos">
+                    <span class="lang-pt">Jogos</span>
+                    <span class="lang-en">Games</span>
+                </a>
+                <a href="#experiencia">
+                    <span class="lang-pt">Experiência & Formação</span>
+                    <span class="lang-en">Experience & Education</span>
+                </a>
+                <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🇺🇸 English</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- APRESENTAÇÃO (SOBRE MIM) -->
+        <section class="hero">
+            <h1>Gabriel Ferreira Gomes Kanthack</h1>
+            <div class="subtitle">
+                <span class="lang-pt">Programador de Jogos & QA | Unity & C#</span>
+                <span class="lang-en">Game Programmer & QA | Unity & C#</span>
+            </div>
+
+            <p class="lang-pt">
+                Desenvolvedor de jogos focado na criação de mecânicas 2D e 2.5D, sistemas de gameplay, inteligência artificial, física e ferramentas de nível na Unity (C#). Também possuo experiência prática em garantia de qualidade (QA), testes de interface, correção de bugs em projetos comerciais e ensino de programação.
+            </p>
+            <p class="lang-en">
+                Game developer focused on building 2D and 2.5D mechanics, gameplay systems, AI behaviors, physics, and level tools in Unity (C#). Experienced in Quality Assurance (QA), UI testing, bug fixing in commercial projects, and teaching programming and computer skills.
+            </p>
+
+            <!-- TECH STACK -->
+            <div class="tech-tags">
+                <span class="tag">Unity / Unity 6</span>
+                <span class="tag">C#</span>
+                <span class="tag">2D & 2.5D Gameplay</span>
+                <span class="tag">QA & Bug Fixing</span>
+                <span class="tag">LDtk / Tilemaps</span>
+                <span class="tag">Construct 2</span>
+                <span class="tag">GameMaker</span>
+                <span class="tag">VS Code / Git</span>
+            </div>
+
+            <!-- LINKS PRINCIPAIS (Troque os '#' pelos seus links exatos) -->
+            <div class="social-links">
+                <a href="https://itch.io" target="_blank" class="btn">
+                    🎮 <span class="lang-pt">Jogos no itch.io</span><span class="lang-en">Games on itch.io</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="btn btn-outline">LinkedIn</a>
+                <a href="https://github.com" target="_blank" class="btn btn-outline">GitHub</a>
+                <a href="mailto:gabrielfgkanthack@gmail.com" class="btn btn-outline">✉️ gabrielfgkanthack@gmail.com</a>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE JOGOS (PORTFÓLIO) -->
+        <h2 class="section-title" id="jogos">
+            <span class="lang-pt">Projetos & Jogos Desenvolvidos</span>
+            <span class="lang-en">Featured Games & Projects</span>
+        </h2>
+
+        <div class="games-grid">
+
+            <!-- CARD 1: DEMONAK -->
+            <article class="game-card">
+                <div class="game-cover">
+                    <!-- Coloque a imagem na pasta img/ e troque o src abaixo para "img/demonak.png" -->
+                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Demonak+(Capa)" alt="Demonak">
+                    <span class="game-badge">Fire Boss | Unity</span>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Demonak</h3>
+                    
+                    <div class="game-summary">
+                        <div class="block-label">
+                            <span class="lang-pt">Resumo do Jogo</span>
+                            <span class="lang-en">Game Summary</span>
+                        </div>
+                        <p class="lang-pt">
+                            [Escreva aqui o resumo sobre o universo e a proposta de Demonak.]
+                        </p>
+                        <p class="lang-en">
+                            [Write the summary about the universe and gameplay of Demonak here.]
+                        </p>
+                    </div>
+
+                    <div class="dev-experience">
+                        <div class="block-label">
+                            <span class="lang-pt">Experiência no Desenvolvimento</span>
+                            <span class="lang-en">Development Experience</span>
+                        </div>
+                        <p class="lang-pt">
+                            Atuação em programação e QA pela Fire Boss, implementando sistemas de fundo parallax, realizando baterias de testes de interface (UI) e identificando/resolvendo bugs de gameplay.
+                        </p>
+                        <p class="lang-en">
+                            Worked on programming and QA at Fire Boss, implementing parallax background systems, conducting UI testing, and tracking/fixing gameplay bugs.
+                        </p>
+                    </div>
+
+                    <div class="game-footer">
+                        <a href="#" target="_blank" class="btn">
+                            <span class="lang-pt">Ver Projeto</span>
+                            <span class="lang-en">View Project</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD 2: NANO AWARE -->
+            <article class="game-card">
+                <div class="game-cover">
+                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Nano+Aware+(Capa)" alt="Nano Aware">
+                    <span class="game-badge">Unity | C# | 2026</span>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Nano Aware</h3>
+                    
+                    <div class="game-summary">
+                        <div class="block-label">
+                            <span class="lang-pt">Resumo do Jogo</span>
+                            <span class="lang-en">Game Summary</span>
+                        </div>
+                        <p class="lang-pt">
+                            [Escreva aqui um resumo rápido sobre a história e o objetivo do jogador em Nano Aware.]
+                        </p>
+                        <p class="lang-en">
+                            [Write a brief summary about the story and player objective in Nano Aware.]
+                        </p>
+                    </div>
+
+                    <div class="dev-experience">
+                        <div class="block-label">
+                            <span class="lang-pt">Experiência no Desenvolvimento</span>
+                            <span class="lang-en">Development Experience</span>
+                        </div>
+                        <p class="lang-pt">
+                            Atuei como programador principal do projeto, estruturando toda a arquitetura de código, movimentação, mecânicas centrais e integração dos assets da equipe na engine.
+                        </p>
+                        <p class="lang-en">
+                            Served as Lead Programmer, structuring the core code architecture, character controller, primary mechanics, and integrating team assets into the engine.
+                        </p>
+                    </div>
+
+                    <div class="game-footer">
+                        <a href="#" target="_blank" class="btn">
+                            <span class="lang-pt">Jogar no itch.io</span>
+                            <span class="lang-en">Play on itch.io</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD 3: GLIMPSES OF LIGHT -->
+            <article class="game-card">
+                <div class="game-cover">
+                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Glimpses+of+Light+(Capa)" alt="Glimpses of Light">
+                    <span class="game-badge">Game Jam | 2026</span>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Glimpses of Light</h3>
+                    
+                    <div class="game-summary">
+                        <div class="block-label">
+                            <span class="lang-pt">Resumo do Jogo</span>
+                            <span class="lang-en">Game Summary</span>
+                        </div>
+                        <p class="lang-pt">
+                            [Escreva aqui o resumo do jogo e como ele trabalhou o tema da Game Jam.]
+                        </p>
+                        <p class="lang-en">
+                            [Write the game summary and how it approached the Game Jam theme.]
+                        </p>
+                    </div>
+
+                    <div class="dev-experience">
+                        <div class="block-label">
+                            <span class="lang-pt">Experiência no Desenvolvimento</span>
+                            <span class="lang-en">Development Experience</span>
+                        </div>
+                        <p class="lang-pt">
+                            Desenvolvido em curto prazo durante uma Game Jam em 2026. Foco em prototipagem rápida de mecânicas, iluminação e entrega de um loop de gameplay completo em equipe.
+                        </p>
+                        <p class="lang-en">
+                            Developed under tight deadlines during a 2026 Game Jam. Focused on rapid prototyping of mechanics, lighting, and delivering a complete gameplay loop with the team.
+                        </p>
+                    </div>
+
+                    <div class="game-footer">
+                        <a href="#" target="_blank" class="btn">
+                            <span class="lang-pt">Jogar no itch.io</span>
+                            <span class="lang-en">Play on itch.io</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD 4: LUMINESCÊNCIA -->
+            <article class="game-card">
+                <div class="game-cover">
+                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Luminescencia+(Capa)" alt="Luminescência">
+                    <span class="game-badge">Game Jam | 2026</span>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Luminescência</h3>
+                    
+                    <div class="game-summary">
+                        <div class="block-label">
+                            <span class="lang-pt">Resumo do Jogo</span>
+                            <span class="lang-en">Game Summary</span>
+                        </div>
+                        <p class="lang-pt">
+                            [Escreva aqui o resumo de Luminescência e as principais mecânicas do jogo.]
+                        </p>
+                        <p class="lang-en">
+                            [Write the summary of Luminescência and its core gameplay mechanics.]
+                        </p>
+                    </div>
+
+                    <div class="dev-experience">
+                        <div class="block-label">
+                            <span class="lang-pt">Experiência no Desenvolvimento</span>
+                            <span class="lang-en">Development Experience</span>
+                        </div>
+                        <p class="lang-pt">
+                            Programação das mecânicas principais, controle de personagem e integração de feedbacks visuais/sonoros sob o escopo enxuto de uma Game Jam.
+                        </p>
+                        <p class="lang-en">
+                            Programmed core mechanics, character controls, and visual/audio feedback integration within a focused Game Jam scope.
+                        </p>
+                    </div>
+
+                    <div class="game-footer">
+                        <a href="#" target="_blank" class="btn">
+                            <span class="lang-pt">Jogar no itch.io</span>
+                            <span class="lang-en">Play on itch.io</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD 5: CROWNFALL -->
+            <article class="game-card">
+                <div class="game-cover">
+                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Crownfall+(Capa)" alt="Crownfall">
+                    <span class="game-badge">2D Game | 2025</span>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Crownfall</h3>
+                    
+                    <div class="game-summary">
+                        <div class="block-label">
+                            <span class="lang-pt">Resumo do Jogo</span>
+                            <span class="lang-en">Game Summary</span>
+                        </div>
+                        <p class="lang-pt">
+                            [Escreva aqui o resumo do jogo 2D Crownfall e seus desafios.]
+                        </p>
+                        <p class="lang-en">
+                            [Write the summary of the 2D game Crownfall and its challenges.]
+                        </p>
+                    </div>
+
+                    <div class="dev-experience">
+                        <div class="block-label">
+                            <span class="lang-pt">Experiência no Desenvolvimento</span>
+                            <span class="lang-en">Development Experience</span>
+                        </div>
+                        <p class="lang-pt">
+                            Desenvolvido no 2º semestre de 2025. Implementação de física 2D, sistemas de animação, tilemaps e balanceamento de controles.
+                        </p>
+                        <p class="lang-en">
+                            Developed in late 2025. Implemented 2D physics, animation systems, tilemaps, and responsive character controls.
+                        </p>
+                    </div>
+
+                    <div class="game-footer">
+                        <a href="#" target="_blank" class="btn">
+                            <span class="lang-pt">Jogar no itch.io</span>
+                            <span class="lang-en">Play on itch.io</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD 6: WATERFLOW -->
+            <article class="game-card">
+                <div class="game-cover">
+                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Waterflow+(Capa)" alt="Waterflow">
+                    <span class="game-badge">Game Project | 2025</span>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Waterflow</h3>
+                    
+                    <div class="game-summary">
+                        <div class="block-label">
+                            <span class="lang-pt">Resumo do Jogo</span>
+                            <span class="lang-en">Game Summary</span>
+                        </div>
+                        <p class="lang-pt">
+                            [Escreva aqui o resumo de Waterflow e como funciona a progressão das fases.]
+                        </p>
+                        <p class="lang-en">
+                            [Write the summary of Waterflow and how level progression works.]
+                        </p>
+                    </div>
+
+                    <div class="dev-experience">
+                        <div class="block-label">
+                            <span class="lang-pt">Experiência no Desenvolvimento</span>
+                            <span class="lang-en">Development Experience</span>
+                        </div>
+                        <p class="lang-pt">
+                            Desenvolvido no 1º semestre de 2025. Construção da lógica central do jogo, interface de usuário (UI) e transição entre níveis.
+                        </p>
+                        <p class="lang-en">
+                            Developed in early 2025. Built core game logic, user interface (UI), and level progression systems.
+                        </p>
+                    </div>
+
+                    <div class="game-footer">
+                        <a href="#" target="_blank" class="btn">
+                            <span class="lang-pt">Jogar no itch.io</span>
+                            <span class="lang-en">Play on itch.io</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- EXPERIÊNCIA E FORMAÇÃO -->
+        <div class="timeline-grid" id="experiencia">
+            
+            <!-- COLUNA 1: EXPERIÊNCIA PROFISSIONAL -->
+            <div>
+                <h2 class="section-title">
+                    <span class="lang-pt">Experiência Profissional</span>
+                    <span class="lang-en">Work Experience</span>
+                </h2>
+
+                <div class="timeline-card">
+                    <h3>
+                        <span class="lang-pt">Estagiário em Programação de Jogos e QA</span>
+                        <span class="lang-en">Game Programming & QA Intern</span>
+                    </h3>
+                    <div class="place">Fire Boss | 02/2026 – <span class="lang-pt">Atual</span><span class="lang-en">Present</span></div>
+                    <p class="lang-pt">
+                        Desenvolvimento e testes no projeto comercial <em>Demonak</em>. Responsável por testes de interface (UI), identificação e resolução de bugs no código e implementação de efeitos de parallax background.
+                    </p>
+                    <p class="lang-en">
+                        Development and QA for the commercial project <em>Demonak</em>. Responsible for UI testing, debugging and fixing code issues, and implementing parallax background systems.
+                    </p>
+                </div>
+
+                <div class="timeline-card">
+                    <h3>
+                        <span class="lang-pt">Instrutor de Informática e Programação</span>
+                        <span class="lang-en">Computer Skills & Programming Instructor</span>
+                    </h3>
+                    <div class="place">Word Time | 1 <span class="lang-pt">ano</span><span class="lang-en">year</span></div>
+                    <p class="lang-pt">
+                        Ensino de lógica de programação e ferramentas computacionais, desenvolvendo forte comunicação técnica, didática e resolução de problemas em sala de aula.
+                    </p>
+                    <p class="lang-en">
+                        Taught programming logic and computer tools, developing strong technical communication, mentoring, and problem-solving skills.
+                    </p>
+                </div>
+
+                <div class="timeline-card">
+                    <h3>
+                        <span class="lang-pt">Instrutor de Informática</span>
+                        <span class="lang-en">Computer Skills Instructor</span>
+                    </h3>
+                    <div class="place">Via Certa Cursos | 1 <span class="lang-pt">ano</span><span class="lang-en">year</span></div>
+                    <p class="lang-pt">
+                        Ministração de aulas práticas, acompanhamento do aprendizado de alunos e suporte técnico.
+                    </p>
+                    <p class="lang-en">
+                        Delivered practical classes, tracked student progress, and provided technical guidance.
+                    </p>
+                </div>
+            </div>
+
+            <!-- COLUNA 2: FORMAÇÃO ACADÊMICA -->
+            <div>
+                <h2 class="section-title">
+                    <span class="lang-pt">Formação Acadêmica</span>
+                    <span class="lang-en">Education</span>
+                </h2>
+
+                <div class="timeline-card">
+                    <h3>
+                        <span class="lang-pt">Programação de Jogos Digitais</span>
+                        <span class="lang-en">Game Programming (Higher Education)</span>
+                    </h3>
+                    <div class="place">Universidade Anhembi Morumbi | 2024 – <span class="lang-pt">Atual</span><span class="lang-en">Present</span></div>
+                    <p class="lang-pt">
+                        Foco no desenvolvimento de jogos em Unity e C#, arquitetura de sistemas de gameplay, inteligência artificial, física, level design e projetos multidisciplinares em equipe.
+                    </p>
+                    <p class="lang-en">
+                        Focused on Unity and C# game development, gameplay systems architecture, AI, physics, level design, and multidisciplinary team projects.
+                    </p>
+                </div>
+
+                <div class="timeline-card">
+                    <h3>
+                        <span class="lang-pt">Análise e Desenvolvimento de Sistemas</span>
+                        <span class="lang-en">Systems Analysis and Development</span>
+                    </h3>
+                    <div class="place">FEMA | <span class="lang-pt">Início em 2020</span><span class="lang-en">Started in 2020</span></div>
+                    <p class="lang-pt">
+                        Base sólida em engenharia de software, lógica de programação, estruturas de dados e desenvolvimento de sistemas.
+                    </p>
+                    <p class="lang-en">
+                        Solid foundation in software engineering, programming logic, data structures, and systems development.
+                    </p>
+                </div>
+
+                <div class="timeline-card">
+                    <h3>
+                        <span class="lang-pt">Curso Técnico em Programação de Jogos</span>
+                        <span class="lang-en">Technical Course in Game Programming</span>
+                    </h3>
+                    <div class="place">Prepara Cursos</div>
+                    <p class="lang-pt">
+                        Formação técnica voltada à lógica aplicada a jogos, criação de mecânicas e uso de motores gráficos.
+                    </p>
+                    <p class="lang-en">
+                        Technical training focused on game logic, mechanics creation, and game engines.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Gabriel Ferreira Gomes Kanthack — São Paulo, Brasil</p>
+    </footer>
+
+    <!-- SCRIPT DE TROCA DE IDIOMA -->
+    <script>
+        function toggleLanguage() {
+            const body = document.body;
+            const btn = document.getElementById('langBtn');
+            if (body.classList.contains('pt')) {
+                body.classList.remove('pt');
+                body.classList.add('en');
+                btn.innerHTML = '🇧🇷 Português';
+            } else {
+                body.classList.remove('en');
+                body.classList.add('pt');
+                btn.innerHTML = '🇺🇸 English';
+            }
+        }
+    </script>
+</body>
+</html>
