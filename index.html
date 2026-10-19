@@ -7,8 +7,6 @@
     <style>
         /* =========================================================
            PALETA DE CORES (ESTILO STEAM / DISCORD)
-           Quando sua identidade visual ficar pronta, basta trocar 
-           os códigos hexadecimais abaixo!
         ========================================================= */
         :root {
             --bg-main: #171a21;        /* Fundo principal (Steam Dark) */
@@ -18,6 +16,7 @@
             --accent-primary: #5865F2; /* Azul/Roxo Discord (Botões e detalhes) */
             --accent-hover: #4752C4;   /* Cor do botão ao passar o mouse */
             --accent-steam: #66c0f4;   /* Azul claro Steam (Títulos e tags) */
+            --accent-wip: #f0b232;     /* Amarelo/Laranja para Projetos em Desenvolvimento */
             --text-main: #f2f3f5;      /* Texto principal claro */
             --text-muted: #b5bac1;     /* Texto secundário acinzentado */
             --border-color: #3f4147;   /* Bordas sutis */
@@ -28,6 +27,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -194,6 +194,18 @@
             background-color: rgba(102, 192, 244, 0.1);
         }
 
+        .btn-wip {
+            background-color: rgba(240, 178, 50, 0.15);
+            color: var(--accent-wip);
+            border: 1px solid rgba(240, 178, 50, 0.4);
+            cursor: default;
+        }
+
+        .btn-wip:hover {
+            background-color: rgba(240, 178, 50, 0.25);
+            transform: none;
+        }
+
         /* Títulos de Seção */
         .section-title {
             font-size: 1.8rem;
@@ -212,6 +224,10 @@
             height: 26px;
             background-color: var(--accent-steam);
             border-radius: 3px;
+        }
+
+        .section-title.wip-title::before {
+            background-color: var(--accent-wip);
         }
 
         /* Grid de Jogos (Portfólio) */
@@ -236,6 +252,10 @@
             transform: translateY(-5px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
             border-color: var(--accent-steam);
+        }
+
+        .game-card.wip-card:hover {
+            border-color: var(--accent-wip);
         }
 
         /* 1. CAPA DO JOGO */
@@ -267,6 +287,11 @@
             border: 1px solid rgba(102, 192, 244, 0.3);
         }
 
+        .game-badge.wip-badge {
+            color: var(--accent-wip);
+            border-color: rgba(240, 178, 50, 0.4);
+        }
+
         .game-content {
             padding: 22px;
             display: flex;
@@ -294,6 +319,10 @@
             margin-bottom: 4px;
         }
 
+        .wip-card .block-label {
+            color: var(--accent-wip);
+        }
+
         .game-summary p {
             color: var(--text-muted);
             font-size: 0.93rem;
@@ -307,6 +336,10 @@
             border-radius: 0 6px 6px 0;
             margin-bottom: 20px;
             flex-grow: 1;
+        }
+
+        .wip-card .dev-experience {
+            border-left-color: var(--accent-wip);
         }
 
         .dev-experience p {
@@ -365,7 +398,7 @@
             font-size: 0.9rem;
         }
 
-        @media (max-width: 650px) {
+        @media (max-width: 700px) {
             .hero h1 { font-size: 1.8rem; }
             .nav-links a { display: none; }
         }
@@ -382,6 +415,10 @@
                     <span class="lang-pt">Jogos</span>
                     <span class="lang-en">Games</span>
                 </a>
+                <a href="#em-desenvolvimento">
+                    <span class="lang-pt">Em Desenvolvimento</span>
+                    <span class="lang-en">In Development</span>
+                </a>
                 <a href="#experiencia">
                     <span class="lang-pt">Experiência & Formação</span>
                     <span class="lang-en">Experience & Education</span>
@@ -397,30 +434,30 @@
         <section class="hero">
             <h1>Gabriel Ferreira Gomes Kanthack</h1>
             <div class="subtitle">
-                <span class="lang-pt">Programador de Jogos & QA | Unity & C#</span>
-                <span class="lang-en">Game Programmer & QA | Unity & C#</span>
+                <span class="lang-pt">Programador de Jogos (2D, 2.5D & 3D) & QA | Unity & C#</span>
+                <span class="lang-en">Game Programmer (2D, 2.5D & 3D) & QA | Unity & C#</span>
             </div>
 
             <p class="lang-pt">
-                Desenvolvedor de jogos focado na criação de mecânicas 2D e 2.5D, sistemas de gameplay, inteligência artificial, física e ferramentas de nível na Unity (C#). Também possuo experiência prática em garantia de qualidade (QA), testes de interface, correção de bugs em projetos comerciais e ensino de programação.
+                Desenvolvedor de jogos focado na programação de mecânicas 2D, 2.5D e 3D, sistemas de gameplay, combate, inteligência artificial e física na Unity (C#). Também possuo experiência prática em garantia de qualidade (QA), testes de interface, correção de bugs em projetos comerciais e ensino de programação.
             </p>
             <p class="lang-en">
-                Game developer focused on building 2D and 2.5D mechanics, gameplay systems, AI behaviors, physics, and level tools in Unity (C#). Experienced in Quality Assurance (QA), UI testing, bug fixing in commercial projects, and teaching programming and computer skills.
+                Game developer focused on programming 2D, 2.5D, and 3D mechanics, gameplay systems, combat, AI behaviors, and physics in Unity (C#). Experienced in Quality Assurance (QA), UI testing, bug fixing in commercial projects, and teaching programming and computer skills.
             </p>
 
             <!-- TECH STACK -->
             <div class="tech-tags">
                 <span class="tag">Unity / Unity 6</span>
                 <span class="tag">C#</span>
-                <span class="tag">2D & 2.5D Gameplay</span>
+                <span class="tag">2D, 2.5D & 3D Gameplay</span>
                 <span class="tag">QA & Bug Fixing</span>
-                <span class="tag">LDtk / Tilemaps</span>
+                <span class="tag">Blender / 3D</span>
                 <span class="tag">Construct 2</span>
                 <span class="tag">GameMaker</span>
                 <span class="tag">VS Code / Git</span>
             </div>
 
-            <!-- LINKS PRINCIPAIS (Troque os '#' pelos seus links exatos) -->
+            <!-- LINKS PRINCIPAIS -->
             <div class="social-links">
                 <a href="https://itch.io" target="_blank" class="btn">
                     🎮 <span class="lang-pt">Jogos no itch.io</span><span class="lang-en">Games on itch.io</span>
@@ -431,7 +468,11 @@
             </div>
         </section>
 
-        <!-- SEÇÃO DE JOGOS (PORTFÓLIO) -->
+        <!-- =========================================================
+             SEÇÃO 1: JOGOS CONCLUÍDOS / PUBLICADOS
+             Para mudar a ordem, basta recortar um bloco <article>...</article>
+             inteiro e colar na posição desejada!
+        ========================================================= -->
         <h2 class="section-title" id="jogos">
             <span class="lang-pt">Projetos & Jogos Desenvolvidos</span>
             <span class="lang-en">Featured Games & Projects</span>
@@ -439,10 +480,9 @@
 
         <div class="games-grid">
 
-            <!-- CARD 1: DEMONAK -->
+            <!-- CARD: DEMONAK -->
             <article class="game-card">
                 <div class="game-cover">
-                    <!-- Coloque a imagem na pasta img/ e troque o src abaixo para "img/demonak.png" -->
                     <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Demonak+(Capa)" alt="Demonak">
                     <span class="game-badge">Fire Boss | Unity</span>
                 </div>
@@ -484,7 +524,7 @@
                 </div>
             </article>
 
-            <!-- CARD 2: NANO AWARE -->
+            <!-- CARD: NANO AWARE -->
             <article class="game-card">
                 <div class="game-cover">
                     <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Nano+Aware+(Capa)" alt="Nano Aware">
@@ -528,7 +568,95 @@
                 </div>
             </article>
 
-            <!-- CARD 3: GLIMPSES OF LIGHT -->
+             <!-- CARD: CROWNFALL -->
+            <article class="game-card">
+                <div class="game-cover">
+                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Crownfall+(Capa)" alt="Crownfall">
+                    <span class="game-badge">2D Game | 2025</span>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Crownfall</h3>
+                    
+                    <div class="game-summary">
+                        <div class="block-label">
+                            <span class="lang-pt">Resumo do Jogo</span>
+                            <span class="lang-en">Game Summary</span>
+                        </div>
+                        <p class="lang-pt">
+                            [Escreva aqui o resumo do jogo 2D Crownfall e seus desafios.]
+                        </p>
+                        <p class="lang-en">
+                            [Write the summary of the 2D game Crownfall and its challenges.]
+                        </p>
+                    </div>
+
+                    <div class="dev-experience">
+                        <div class="block-label">
+                            <span class="lang-pt">Experiência no Desenvolvimento</span>
+                            <span class="lang-en">Development Experience</span>
+                        </div>
+                        <p class="lang-pt">
+                            Desenvolvido no 2º semestre de 2025. Implementação de física 2D, sistemas de animação, colisões e balanceamento de controles.
+                        </p>
+                        <p class="lang-en">
+                            Developed in late 2025. Implemented 2D physics, animation systems, collisions, and responsive character controls.
+                        </p>
+                    </div>
+
+                    <div class="game-footer">
+                        <a href="#" target="_blank" class="btn">
+                            <span class="lang-pt">Jogar no itch.io</span>
+                            <span class="lang-en">Play on itch.io</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD: WATERFLOW -->
+            <article class="game-card">
+                <div class="game-cover">
+                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Waterflow+(Capa)" alt="Waterflow">
+                    <span class="game-badge">Game Project | 2025</span>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Waterflow</h3>
+                    
+                    <div class="game-summary">
+                        <div class="block-label">
+                            <span class="lang-pt">Resumo do Jogo</span>
+                            <span class="lang-en">Game Summary</span>
+                        </div>
+                        <p class="lang-pt">
+                            [Escreva aqui o resumo de Waterflow e como funciona a progressão das fases.]
+                        </p>
+                        <p class="lang-en">
+                            [Write the summary of Waterflow and how level progression works.]
+                        </p>
+                    </div>
+
+                    <div class="dev-experience">
+                        <div class="block-label">
+                            <span class="lang-pt">Experiência no Desenvolvimento</span>
+                            <span class="lang-en">Development Experience</span>
+                        </div>
+                        <p class="lang-pt">
+                            Desenvolvido no 1º semestre de 2025. Construção da lógica central do jogo, interface de usuário (UI) e transição entre níveis.
+                        </p>
+                        <p class="lang-en">
+                            Developed in early 2025. Built core game logic, user interface (UI), and level progression systems.
+                        </p>
+                    </div>
+
+                    <div class="game-footer">
+                        <a href="#" target="_blank" class="btn">
+                            <span class="lang-pt">Jogar no itch.io</span>
+                            <span class="lang-en">Play on itch.io</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD: GLIMPSES OF LIGHT -->
             <article class="game-card">
                 <div class="game-cover">
                     <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Glimpses+of+Light+(Capa)" alt="Glimpses of Light">
@@ -572,7 +700,7 @@
                 </div>
             </article>
 
-            <!-- CARD 4: LUMINESCÊNCIA -->
+            <!-- CARD: LUMINESCÊNCIA -->
             <article class="game-card">
                 <div class="game-cover">
                     <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Luminescencia+(Capa)" alt="Luminescência">
@@ -616,90 +744,106 @@
                 </div>
             </article>
 
-            <!-- CARD 5: CROWNFALL -->
-            <article class="game-card">
+        </div>
+
+        <!-- =========================================================
+             SEÇÃO 2: PROJETOS EM DESENVOLVIMENTO (WIP)
+        ========================================================= -->
+        <h2 class="section-title wip-title" id="em-desenvolvimento">
+            <span class="lang-pt">Projetos em Desenvolvimento (WIP)</span>
+            <span class="lang-en">Projects in Development (WIP)</span>
+        </h2>
+
+        <div class="games-grid">
+
+            <!-- CARD WIP 1: JOGO DE LUTA NARUTO -->
+            <article class="game-card wip-card">
                 <div class="game-cover">
-                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Crownfall+(Capa)" alt="Crownfall">
-                    <span class="game-badge">2D Game | 2025</span>
+                    <img src="https://placehold.co/600x340/2b2d31/f0b232?text=Naruto+Fighting+Game+(WIP)" alt="Jogo de Luta Naruto">
+                    <span class="game-badge wip-badge">WIP | Fighting Game</span>
                 </div>
                 <div class="game-content">
-                    <h3 class="game-title">Crownfall</h3>
+                    <h3 class="game-title">
+                        <span class="lang-pt">Jogo de Luta - Naruto</span>
+                        <span class="lang-en">Naruto Fighting Game</span>
+                    </h3>
                     
                     <div class="game-summary">
                         <div class="block-label">
-                            <span class="lang-pt">Resumo do Jogo</span>
-                            <span class="lang-en">Game Summary</span>
+                            <span class="lang-pt">Resumo do Projeto</span>
+                            <span class="lang-en">Project Summary</span>
                         </div>
                         <p class="lang-pt">
-                            [Escreva aqui o resumo do jogo 2D Crownfall e seus desafios.]
+                            [Escreva aqui o resumo sobre o seu jogo de luta do Naruto, estilo de câmera e mecânicas de combate.]
                         </p>
                         <p class="lang-en">
-                            [Write the summary of the 2D game Crownfall and its challenges.]
+                            [Write the summary about your Naruto fighting game, camera style, and combat mechanics.]
                         </p>
                     </div>
 
                     <div class="dev-experience">
                         <div class="block-label">
-                            <span class="lang-pt">Experiência no Desenvolvimento</span>
-                            <span class="lang-en">Development Experience</span>
+                            <span class="lang-pt">Foco no Desenvolvimento</span>
+                            <span class="lang-en">Development Focus</span>
                         </div>
                         <p class="lang-pt">
-                            Desenvolvido no 2º semestre de 2025. Implementação de física 2D, sistemas de animação, tilemaps e balanceamento de controles.
+                            Programação de sistemas de combate, máquinas de estado (state machines) de personagens, detecção de hitboxes/hurtboxes, combos e especiais.
                         </p>
                         <p class="lang-en">
-                            Developed in late 2025. Implemented 2D physics, animation systems, tilemaps, and responsive character controls.
+                            Programming combat systems, character state machines, hitbox/hurtbox detection, combos, and special moves.
                         </p>
                     </div>
 
                     <div class="game-footer">
-                        <a href="#" target="_blank" class="btn">
-                            <span class="lang-pt">Jogar no itch.io</span>
-                            <span class="lang-en">Play on itch.io</span>
-                        </a>
+                        <span class="btn btn-wip">
+                            🚧 <span class="lang-pt">Em Desenvolvimento</span><span class="lang-en">In Development</span>
+                        </span>
                     </div>
                 </div>
             </article>
 
-            <!-- CARD 6: WATERFLOW -->
-            <article class="game-card">
+            <!-- CARD WIP 2: PROJETO 3D LEGO -->
+            <article class="game-card wip-card">
                 <div class="game-cover">
-                    <img src="https://placehold.co/600x340/1b2838/66c0f4?text=Waterflow+(Capa)" alt="Waterflow">
-                    <span class="game-badge">Game Project | 2025</span>
+                    <img src="https://placehold.co/600x340/2b2d31/f0b232?text=Projeto+3D+LEGO+(WIP)" alt="Projeto 3D LEGO">
+                    <span class="game-badge wip-badge">WIP | 3D / LEGO</span>
                 </div>
                 <div class="game-content">
-                    <h3 class="game-title">Waterflow</h3>
+                    <h3 class="game-title">
+                        <span class="lang-pt">Projeto 3D LEGO</span>
+                        <span class="lang-en">3D LEGO Project</span>
+                    </h3>
                     
                     <div class="game-summary">
                         <div class="block-label">
-                            <span class="lang-pt">Resumo do Jogo</span>
-                            <span class="lang-en">Game Summary</span>
+                            <span class="lang-pt">Resumo do Projeto</span>
+                            <span class="lang-en">Project Summary</span>
                         </div>
                         <p class="lang-pt">
-                            [Escreva aqui o resumo de Waterflow e como funciona a progressão das fases.]
+                            [Escreva aqui o resumo sobre o projeto 3D de LEGO, proposta visual e interações.]
                         </p>
                         <p class="lang-en">
-                            [Write the summary of Waterflow and how level progression works.]
+                            [Write the summary about the 3D LEGO project, visual style, and interactions.]
                         </p>
                     </div>
 
                     <div class="dev-experience">
                         <div class="block-label">
-                            <span class="lang-pt">Experiência no Desenvolvimento</span>
-                            <span class="lang-en">Development Experience</span>
+                            <span class="lang-pt">Foco no Desenvolvimento</span>
+                            <span class="lang-en">Development Focus</span>
                         </div>
                         <p class="lang-pt">
-                            Desenvolvido no 1º semestre de 2025. Construção da lógica central do jogo, interface de usuário (UI) e transição entre níveis.
+                            Desenvolvimento 3D integrando modelagem e renderização (Mecabricks / Blender) com programação de movimentação, câmera e física 3D.
                         </p>
                         <p class="lang-en">
-                            Developed in early 2025. Built core game logic, user interface (UI), and level progression systems.
+                            3D development integrating modeling and rendering workflows (Mecabricks / Blender) with 3D character movement, camera control, and physics programming.
                         </p>
                     </div>
 
                     <div class="game-footer">
-                        <a href="#" target="_blank" class="btn">
-                            <span class="lang-pt">Jogar no itch.io</span>
-                            <span class="lang-en">Play on itch.io</span>
-                        </a>
+                        <span class="btn btn-wip">
+                            🚧 <span class="lang-pt">Em Desenvolvimento</span><span class="lang-en">In Development</span>
+                        </span>
                     </div>
                 </div>
             </article>
@@ -773,10 +917,10 @@
                     </h3>
                     <div class="place">Universidade Anhembi Morumbi | 2024 – <span class="lang-pt">Atual</span><span class="lang-en">Present</span></div>
                     <p class="lang-pt">
-                        Foco no desenvolvimento de jogos em Unity e C#, arquitetura de sistemas de gameplay, inteligência artificial, física, level design e projetos multidisciplinares em equipe.
+                        Foco no desenvolvimento de jogos 2D e 3D em Unity e C#, arquitetura de sistemas de gameplay, inteligência artificial, física e projetos multidisciplinares em equipe.
                     </p>
                     <p class="lang-en">
-                        Focused on Unity and C# game development, gameplay systems architecture, AI, physics, level design, and multidisciplinary team projects.
+                        Focused on 2D and 3D game development in Unity and C#, gameplay systems architecture, AI, physics, and multidisciplinary team projects.
                     </p>
                 </div>
 
